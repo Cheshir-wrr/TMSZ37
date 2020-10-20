@@ -12,6 +12,17 @@ def application(environ, start_response):
         start_response(status, list(headers.items()))
 
         yield payload
+
+    elif url == "/img.jpg/":
+        status = "200 OK"
+        headers = {
+            "Content-type": "image/jpeg",
+        }
+        payload = read_from_logo()
+        start_response(status, list(headers.items()))
+
+        yield payload
+
     else:
         status = "200 OK"
         headers = {
@@ -42,4 +53,13 @@ def read_from_styles_css():
         payload = fp.read()
 
     payload = payload.encode()
+    return payload
+
+
+def read_from_logo():
+    path = DIR_STATIC / "img.jpg"
+
+    with path.open("rb") as fp:
+        payload = fp.read()
+
     return payload
