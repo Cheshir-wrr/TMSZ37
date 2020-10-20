@@ -22,13 +22,13 @@ jobs:
     docker:
       - image: circleci/python:3.8.5-browsers
         auth:
-          username: cheshirrr
-          password: MoyKlever13
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWORD
 
       - image: circleci/postgres:9.6.9-alpine
         auth:
-          username: cheshirrr
-          password: MoyKlever13
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWORD
         environment:
           POSTGRES_DB: ci
           POSTGRES_PASSWORD: ci
