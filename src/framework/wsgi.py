@@ -1,5 +1,6 @@
 import mimetypes
 import random
+
 from framework.consts import DIR_STATIC
 
 
