@@ -1,13 +1,22 @@
 import random
 
+from framework.consts import DIR_STATIC
+from framework.types import RequestT
+from framework.types import ResponseT
 
-def generate_404(environ) -> tuple:
-    """
-    Give me a WSGI environ and I will return bytes
-    :param environ:
-    :return:
-    """
-    url = environ["PATH_INFO"]
+
+def read_static(file_name: str) -> bytes:
+    path = DIR_STATIC / file_name
+
+    with path.open("rb") as fp:
+        payload = fp.read()
+
+    return payload
+
+
+def generate_404(request: RequestT) -> ResponseT:
+
+    url = request.path
     pin = random.randint(1, 1000)
     msg = f"Hello world! Your path: {url} not found. Pin: {pin}"
 
@@ -16,4 +25,4 @@ def generate_404(environ) -> tuple:
     headers = {
         "Content-type": "text/plain",
     }
-    return status, headers, payload
+    return ResponseT(status, headers, payload)
