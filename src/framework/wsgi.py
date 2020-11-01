@@ -4,9 +4,7 @@ from handlers.handle_index import handle_index
 from handlers.not_found import generate_404
 from handlers.Styles import handle_style
 
-handlers = {"/xxx/": handle_style,
-            "/img.jpg/": handle_image,
-            "/": handle_index}
+handlers = {"/xxx/": handle_style, "/img.jpg/": handle_image, "/": handle_index}
 
 
 def application(environ: dict, start_response):
