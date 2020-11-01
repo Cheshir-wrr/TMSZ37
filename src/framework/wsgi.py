@@ -1,22 +1,30 @@
+from framework.types import RequestT
 from handlers.handle_image import handle_image
 from handlers.handle_index import handle_index
 from handlers.not_found import generate_404
 from handlers.Styles import handle_style
 
+handlers = {"/xxx/": handle_style, "/img.jpg/": handle_image, "/": handle_index}
 
-def application(environ, start_response):
-    url = environ["PATH_INFO"]
 
-    handlers = {
-        "/xxx/": handle_style,
-        "/img.jpg/": handle_image,
-        "/": handle_index,
+def application(environ: dict, start_response):
+    path = environ["PATH_INFO"]
+
+    handler = handlers.get(path, generate_404)
+
+    request_headers = {
+        key[5:]: environ[key]
+        for key in filter(lambda i: i.startswith("HTTP_"), environ)
     }
 
-    handler = handlers.get(url, generate_404)
+    request = RequestT(
+        method=environ["REQUEST_METHOD"],
+        path=path,
+        headers=request_headers,
+    )
 
-    status, headers, payload = handler(environ)
+    response = handler(request)
 
-    start_response(status, list(headers.items()))
+    start_response(response.status, list(response.headers.items()))
 
-    yield payload
+    yield response.payload
