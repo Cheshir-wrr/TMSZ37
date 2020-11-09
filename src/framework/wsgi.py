@@ -8,6 +8,8 @@ from handlers.hello import hello
 from handlers.not_found import generate_404
 from handlers.server_error import generate_500
 from handlers.Styles import handle_style
+from framework.utils import get_body
+from framework.utils import get_form_data
 
 handlers = {
     "/xxx/": handle_style,
@@ -21,15 +23,18 @@ handlers = {
 def application(environ: dict, start_response):
     try:
         path = environ["PATH_INFO"]
-
         handler = handlers.get(path, generate_404)
 
         request_headers = {
             key[5:]: environ[key]
             for key in filter(lambda i: i.startswith("HTTP_"), environ)
         }
+        body = get_body(environ)
+        form_data = get_form_data(body)
 
         request = RequestT(
+            body=body,
+            form_data=form_data,
             method=environ["REQUEST_METHOD"],
             path=path,
             headers=request_headers,
@@ -39,7 +44,7 @@ def application(environ: dict, start_response):
         response = handler(request)
 
     except Exception:
-        response = generate_500(request)
+        response = generate_500()
 
     start_response(response.status, list(response.headers.items()))
 

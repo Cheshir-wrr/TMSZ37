@@ -14,4 +14,7 @@ class RequestT:
     method: str
     path: str
     headers: dict
+
     query: Optional[dict] = None
+    form_data: Optional[dict] = None
+    body: Optional[bytes] = None
