@@ -1,6 +1,8 @@
 from urllib.parse import parse_qs
 
 from framework.types import RequestT
+from framework.utils import get_body
+from framework.utils import get_form_data
 from handlers.error import make_error
 from handlers.handle_image import handle_image
 from handlers.handle_index import handle_index
@@ -8,8 +10,6 @@ from handlers.hello import hello
 from handlers.not_found import generate_404
 from handlers.server_error import generate_500
 from handlers.Styles import handle_style
-from framework.utils import get_body
-from framework.utils import get_form_data
 
 handlers = {
     "/xxx/": handle_style,

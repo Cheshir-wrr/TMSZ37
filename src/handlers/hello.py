@@ -19,7 +19,7 @@ def hello(request: RequestT) -> ResponseT:
     )
     document = base_html.format(xxx=document)
 
-    #msg = f"Hello, {name}!"
+    # msg = f"Hello, {name}!"
 
     payload = document.encode()
     status = "200 ok"

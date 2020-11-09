@@ -1,4 +1,5 @@
-from typing import Dict, Any
+from typing import Any
+from typing import Dict
 from urllib.parse import parse_qs
 
 
