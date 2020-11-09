@@ -1,6 +1,8 @@
 from urllib.parse import parse_qs
 
 from framework.types import RequestT
+from framework.utils import get_body
+from framework.utils import get_form_data
 from handlers.error import make_error
 from handlers.handle_image import handle_image
 from handlers.handle_index import handle_index
@@ -21,15 +23,18 @@ handlers = {
 def application(environ: dict, start_response):
     try:
         path = environ["PATH_INFO"]
-
         handler = handlers.get(path, generate_404)
 
         request_headers = {
             key[5:]: environ[key]
             for key in filter(lambda i: i.startswith("HTTP_"), environ)
         }
+        body = get_body(environ)
+        form_data = get_form_data(body)
 
         request = RequestT(
+            body=body,
+            form_data=form_data,
             method=environ["REQUEST_METHOD"],
             path=path,
             headers=request_headers,
@@ -39,7 +44,7 @@ def application(environ: dict, start_response):
         response = handler(request)
 
     except Exception:
-        response = generate_500(request)
+        response = generate_500()
 
     start_response(response.status, list(response.headers.items()))
 
