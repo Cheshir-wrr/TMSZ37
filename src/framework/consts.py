@@ -29,6 +29,6 @@ USERS_STORAGE = (DIR_STORAGE / "users.json").resolve()
 
 USER_COOKIE = "cheshir"
 
-USER_TTL = timedelta(days=2)
+USER_TTL = timedelta(minutes=10)
 
 DATE_TIME_FMT = "%Y-%m-%d %H:%M:%S"
