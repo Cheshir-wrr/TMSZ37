@@ -16,7 +16,8 @@ default:
   MODE_DEBUG: true
   MODE_PROFILING: false
   PORT: -1
-  PROJECT_NAME: "tms-z37"
+  PROJECT_NAME: ""
+  SECRET_KEY: "1"
   TEMPLATE_ENGINE: "Django"
   VENV_SYNTHETIC: false
   WEB_CONCURRENCY: 0
@@ -25,7 +26,9 @@ default:
 development:
   HOST: "localhost"
   PORT: 8000
+  SECRET_KEY: "1"
   WEB_CONCURRENCY: 2
+
 
 
 ci:
@@ -37,3 +40,4 @@ ci:
 
 heroku:
   HOST: "tmsz37.herokuapp.com"
+  MODE_DEBUG: false
