@@ -5,7 +5,7 @@ from framework.utils import read_static
 
 
 def handle_style(_request: RequestT) -> ResponseT:
-    payload = read_static("style.css")
+    payload = read_static("styles.css")
     status = build_status(200)
     headers = {"Content-type": "text/css"}
 
