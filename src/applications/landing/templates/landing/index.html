@@ -1,0 +1,21 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block main %}
+
+<h1 align="left"><font size="4" color="black" face="Comic">Рэй Брэдбери</font></h1>
+    <h2 align="left"><font size="4">Когда человеку семнадцать, он знает все. <br>
+        Если ему двадцать семь и он по-прежнему знает все – значит, ему все еще семнадцать.
+</font></h2>
+
+    <p align="left"><font size="4"> "Вино из одуванчиков" </font></p>
+
+        <hr>
+    <img alt= "logo" src="{% static 'images/img.jpg' %}" width="25%" align="left" border="3" hspace="1%" vspace="0%">
+    <nav>
+        <p align="left"><font size="3"><a href="/">Start</a></font></p>
+    <p align="left"><font size="3"><a href="/e/">Fail</a></font></p>
+    <p align="left"><font size="3"><a href="/h">Hello</a></font></p>
+    </nav>
+
+	{% endblock %}
