@@ -19,10 +19,10 @@ dynaconf = { extras = ["yaml"], version = "*" }
 gunicorn = "*"
 psycopg2-binary = "*"
 sentry-sdk = "*"
-dj-database-url = "*"
 atomicwrites = "*"
 django = "*"
 whitenoise = "*"
+dj-database-url = "*"
 
 [requires]
 python_version = "3.8"
