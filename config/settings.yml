@@ -42,3 +42,4 @@ ci:
 heroku:
   HOST: "tmsz37.herokuapp.com"
   MODE_DEBUG: false
+  VENV_SYNTHETIC: true
