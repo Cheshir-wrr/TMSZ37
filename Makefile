@@ -31,7 +31,7 @@ run-prod:
 .PHONY: sh
 sh:
 	$(call log, starting Python shell)
-	$(RUN) ipython
+	$(PYTHON) src/manage.py shell
 
 
 .PHONY: venv
@@ -58,7 +58,7 @@ db: resetdb
 
 
 .PHONY: data
-data: static
+data: static migrate
 	$(call log, preparing data)
 
 
@@ -100,9 +100,11 @@ createdb:
 .PHONY: migrations
 migrations:
 	$(call log, generating migrations)
+	$(PYTHON) src/manage.py makemigrations
 
 
 .PHONY: migrate
 migrate:
 	$(call log, applying migrations)
+	$(PYTHON) src/manage.py migrate
 

@@ -1,5 +1,7 @@
+import os
 from pathlib import Path
 
+import dj_database_url
 from dynaconf import settings as _ds
 
 _this_file = Path(__file__).resolve()
@@ -13,6 +15,7 @@ DIR_REPO = DIR_SRC.parent.resolve()
 SECRET_KEY = _ds.SECRET_KEY
 
 DEBUG = _ds.MODE_DEBUG
+
 
 ALLOWED_HOSTS = [
     "localhost",
@@ -28,6 +31,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # ------------------------------------
+    "applications.blog.apps.BlogConfig",
+    "applications.landing.apps.LandingConfig",
+    "applications.hello.apps.HelloConfig",
 ]
 
 MIDDLEWARE = [
@@ -61,14 +68,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "project.wsgi.application"
 
+database_url = os.getenv("DATABASE_URL", _ds.DATABASE_URL)
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": DIR_SRC / "db.sqlite3",
-    }
-}
+DATABASE_URL = os.getenv("DATABASE_URL", _ds.DATABASE_URL)
 
+DATABASES = {"default": dj_database_url.parse(DATABASE_URL)}
 
 AUTH_PASSWORD_VALIDATORS = [
     {

@@ -18,9 +18,12 @@ colorama = "*"
 dynaconf = { extras = ["yaml"], version = "*" }
 gunicorn = "*"
 psycopg2-binary = "*"
+sentry-sdk = "*"
 atomicwrites = "*"
 django = "*"
 whitenoise = "*"
+dj-database-url = "*"
+delorean = "*"
 
 [requires]
 python_version = "3.8"
