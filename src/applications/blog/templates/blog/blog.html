@@ -24,7 +24,7 @@
   </p>
   <p>{% csrf_token %}</p>
     </form>
-
+<p><a href="/">Top</a></p>
 
 {% for post in object_list %}
  <article>
@@ -34,5 +34,5 @@
    <p>Likes {{post.nr_likes}}</p>
  </article>
 {% endfor %}
-<p><a href="/">Top</a></p>
+
 {% endblock %}
