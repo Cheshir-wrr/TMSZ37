@@ -28,5 +28,3 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ["content"]
         widgets = {"content": forms.Textarea(attrs={"rows": 2})}
-
-
