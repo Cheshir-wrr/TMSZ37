@@ -6,6 +6,7 @@ from django.views.generic import RedirectView
 class HelloForm(forms.Form):
     name = forms.CharField()
     address = forms.CharField()
+    book = forms.CharField()
 
 
 class HelloView(FormView):
@@ -18,11 +19,13 @@ class HelloView(FormView):
 
         name = self.request.session.get("name")
         address = self.request.session.get("address")
+        book = self.request.session.get("book")
 
         context.update(
             {
                 "address": address or "nowhere",
                 "name": name or "anonymous",
+                "book": book or "poof",
             }
         )
 
@@ -31,8 +34,10 @@ class HelloView(FormView):
     def form_valid(self, form):
         name = form.cleaned_data["name"]
         address = form.cleaned_data["address"]
+        book = form.cleaned_data["book"]
         self.request.session["name"] = name
         self.request.session["address"] = address
+        self.request.session["book"] = book
         return super().form_valid(form)
 
 

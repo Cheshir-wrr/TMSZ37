@@ -3,6 +3,8 @@
 {% block main %}
   <h2 id="greeting_display_id">Hello, {{ name }}!</h2>
   <p id="address_display_id">You are in {{ address }}!</p>
+  <p id="book_display_id">Your favourite book is {{ book }}!</p>
+
 
   <form action="/h/" method="post">
     {{ form.as_p }}

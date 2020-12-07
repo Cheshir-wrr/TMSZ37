@@ -11,6 +11,7 @@ class Post(models.Model):
     content = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(default=_now)
     nr_likes = models.IntegerField(default=0)
+    nr_views = models.IntegerField(default=0)
 
     class Meta:
         ordering = ["-created_at"]
