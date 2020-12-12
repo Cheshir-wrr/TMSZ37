@@ -1,0 +1,21 @@
+{% extends "_base.html" %}
+{% block main %}
+  <h1>/b/{{ object.pk }}</h1>
+
+    <article class="post">
+     <h3><span class="content">{{post.title}}</span></h3>
+     <p><span class="content">{{ post.content }}</span></p>
+        <p><span class="date">{{ post.created_at }}</span></p>
+
+      <span class="views">&#128064&nbsp;{{ post.nr_views }}</span>
+      <span class="likes">💙&nbsp;{{ post.nr_likes }}</span>
+      <span class="likes">&#128148&nbsp;{{ post.nr_dlikes }}</span>
+
+
+          <form class="modify" method="get" action="{% url 'blog:update' post.pk %}">
+          <p>  <button type="submit">❌</button>  </p>
+          <p>{% csrf_token %}</p></form>
+
+    </article>
+<p><a href="/b/">All post</a></p>
+{% endblock %}
