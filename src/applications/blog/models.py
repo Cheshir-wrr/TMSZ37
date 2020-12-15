@@ -5,6 +5,7 @@ from django.urls import reverse
 
 User = get_user_model()
 
+
 def _now():
     return delorean.utcnow().datetime
 
