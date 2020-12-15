@@ -20,13 +20,16 @@ class NewPostView(CreateView):
     fields = ["title", "content"]
     success_url = "/b/"
 
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.author = self.request.user
+        return super().form_valid(form)
+
 
 class AllPostDelete(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         Post.objects.all().delete()
-
-    success_url = "/b/"
-    # reverse_lazy("blog:index")
+        return reverse_lazy("blog:main")
 
 
 class PostForm(forms.ModelForm):
@@ -39,7 +42,7 @@ class PostForm(forms.ModelForm):
 class PostDelete(DeleteView):
     http_method_names = ["post"]
     model = Post
-    success_url = "/b/"
+    success_url = reverse_lazy("blog:main")
 
 
 class SinglePostView(DetailView):
