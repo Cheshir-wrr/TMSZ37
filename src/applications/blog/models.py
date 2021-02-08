@@ -17,7 +17,7 @@ class Post(models.Model):
     nr_likes = models.IntegerField(default=0)
     nr_dlikes = models.IntegerField(default=0)
     nr_views = models.IntegerField(default=0)
-
+ 
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
