@@ -1,5 +1,9 @@
 import delorean
+from django.contrib.auth import get_user_model
 from django.db import models
+from django.urls import reverse
+
+User = get_user_model()
 
 
 def _now():
@@ -13,6 +17,8 @@ class Post(models.Model):
     nr_likes = models.IntegerField(default=0)
     nr_dlikes = models.IntegerField(default=0)
     nr_views = models.IntegerField(default=0)
+ 
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ["-created_at"]

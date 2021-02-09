@@ -1,4 +1,4 @@
-[[source]]
+ [[source]]
 name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
@@ -24,6 +24,8 @@ django = "*"
 whitenoise = "*"
 dj-database-url = "*"
 delorean = "*"
+fastapi = "*"
+uvicorn = "*"
 
 [requires]
 python_version = "3.8"
