@@ -6,21 +6,13 @@ class CounterMiddleware:
         self.get_response = get_response
 
     def __call__(self, request: HttpRequest):
-        if request.method != "GET":
-            from applications.blog.models import Post
+        if request.method.lower() != "get":
+            return self.get_response(request)
 
-            posts = Post.objects.all()
+        if request.path.startswith("/b/update"):
+            return self.get_response(request)
 
-            path_parts = request.path.split("/")
-            pk = path_parts[-2]
-            if pk.isdigit():
-                posts = posts.filter(pk=pk)
-
-            for post in posts:
-                post.nr_views -= 1
-                post.save()
-
-        elif request.path.startswith("/b"):
+        if request.path.startswith("/b"):
             from applications.blog.models import Post
 
             posts = Post.objects.all()
