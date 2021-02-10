@@ -4,7 +4,6 @@ from django.db import models
 from django.db.models import Manager
 from django.urls import reverse_lazy
 
-
 User = get_user_model()
 
 
@@ -22,7 +21,7 @@ class Post(models.Model):
     content = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(default=_now)
     nr_views = models.IntegerField(default=0)
- 
+
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     likers = models.ManyToManyField(User, related_name="liked_posts", blank=True)
 

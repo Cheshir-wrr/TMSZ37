@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.views import View
@@ -10,7 +11,6 @@ from django.views.generic import RedirectView
 from django.views.generic import UpdateView
 
 from applications.blog.models import Post
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class AllPostsView(ListView):
