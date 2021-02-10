@@ -1,8 +1,9 @@
 {% extends "_base.html" %}
-
+{% load static %}
 {% block main %}
+<script src="{% static 'blog/scripts/blog.js' %}"></script>
 
- <h1>All posts</h1>
+<h1>All posts</h1>
 {% if not user.is_anonymous %}
 <form method="post" action="{% url 'blog:new_post' %}">
    <p>
@@ -28,35 +29,34 @@
 {% endif %}
 
 
-{% for post in object_list %}
+{% for object in object_list %}
 
     <article class="post">
 
 
-     <h3><span class="content">{{post.title}}</span></h3>
-     <p><span class="content">{{ post.content }}</span></p>
-        <p><span class="date">{{ post.created_at }}</span></p>
-        <p>Post_id:{{ post.id }}</p>
-         <p style='font-size:18px'>Author: {{post.author.username}}</p>
+     <h3><span class="content">{{object.title}}</span></h3>
+     <p><span class="content">{{ object.content }}</span></p>
+     <p><span class="date">{{ object.created_at }}</span></p>
+     <p>Post_id:{{ object.id }}</p>
+     <p style='font-size:18px'>Author: {{object.author.username}}</p>
 
-      <span class="views">&#128064&nbsp;{{ post.nr_views }}</span>
-      <span class="likes">💙&nbsp;{{ post.nr_likes }}</span>
-      <span class="likes">&#128148&nbsp;{{ post.nr_dlikes }}</span>
-
+     <span class="views">&#128064&nbsp;{{ object.nr_views }}</span>
+     <span class="likes liked" onclick="like(this, '{{ object.get_absolute_url }}');">{{ object.nr_likes }}</span>
 
 
-      {% if user.is_superuser or post.author == user %}
-     <form method="post" action="{% url 'blog:post_delete' pk=post.pk %}">
-  <p><button type="submit">❌</button></p>
-    <p>{% csrf_token %}</p>
-    </form>
 
-     <form action="{% url 'blog:post_update' pk=post.pk %}">
-  <p><button type="submit">✏</button></p>
-    <p>{% csrf_token %}</p>
-    </form>
- </article>
+      {% if user.is_superuser or object.author == user %}
+     <form method="post" action="{% url 'blog:post_delete' pk=object.pk %}">
+     <p><button type="submit">❌</button></p>
+     <p>{% csrf_token %}</p>
+     </form>
+
+     <form action="{% url 'blog:post_update' pk=object.pk %}">
+     <p><button type="submit">✏</button></p>
+     <p>{% csrf_token %}</p>
+     </form>
+     </article>
+
 {% endif %}
 {% endfor %}
-
 {% endblock %}
