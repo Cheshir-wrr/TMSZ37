@@ -1,23 +1,22 @@
 {% extends "_base.html" %}
 
 {% block main %}
-  <h2 id="greeting_display_id">Hello, {{ name }}!</h2>
-  <p id="address_display_id">You are in {{ address }}!</p>
-  <p id="book_display_id">Your favourite book is {{ book }}!</p>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <h2 id="greeting_display_id">Привет, {{ name }}!</h2>
+  <p id="address_display_id">Ты в {{ address }}!</p>
+  <p id="book_display_id">Твоя любимая книга: {{ book }}!</p>
 
 
   <form action="/h/" method="post">
     {{ form.as_p }}
     <p>
-      <button id="submit_id" type="submit">Send</button>
+      <button id="submit_id" type="submit">Результат</button>
     </p>
     {% csrf_token %}
   </form>
 
   <form action="/h/reset/" method="post">
-    <button id="reset_id" type="submit">Reset</button>
+    <button id="reset_id" type="submit">Сбросить</button>
     {% csrf_token %}
   </form>
-
-<p><a href="/">Top</a></p>
 {% endblock %}
