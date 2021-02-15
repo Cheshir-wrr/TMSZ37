@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView
@@ -10,6 +11,7 @@ from django.views.generic import ListView
 from django.views.generic import RedirectView
 from django.views.generic import UpdateView
 
+from applications.blog.forms import CommentForm
 from applications.blog.models import Post
 
 
@@ -49,9 +51,25 @@ class PostDelete(DeleteView):
 
 
 class SinglePostView(DetailView):
-    template_name = "blog/post.html"
+    template_name = "blog/post_detail.html"
     model = Post
     success_url = "/b/"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = CommentForm()
+        return context
+
+
+class AddComment(View):
+    def post(self, request, pk):
+        form = CommentForm(request.POST)
+        post = Post.objects.get(id=pk)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.post = post
+            form.save()
+        return redirect(post.get_absolute_url())
 
 
 class UpdatePostView(UpdateView):
@@ -84,3 +102,19 @@ class LikeView(LoginRequiredMixin, View):
             payload.update({"ok": True, "nr_likes": post.nr_likes, "reason": None})
 
         return JsonResponse(payload)
+
+
+class Search(ListView):
+    template_name = "blog/blog.html"
+
+    def get_queryset(self):
+        return Post.objects.filter(title__icontains=self.request.GET.get("q"))
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["q"] = f'q={self.request.GET.get("q")}&'
+        context.update(
+            {"search_field": context["q"].replace("q=", "").replace("&", "")}
+        )
+
+        return context

@@ -40,3 +40,18 @@ class Post(models.Model):
         kwargs = {"pk": self.pk}
         url = reverse_lazy("blog:post", kwargs=kwargs)
         return url
+
+
+class Comments(models.Model):
+
+    email = models.EmailField()
+    name = models.CharField("Имя", max_length=100)
+    text = models.TextField("Сообщение", max_length=5000)
+    post = models.ForeignKey(Post, verbose_name="Пост", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.name} - {self.post}"
+
+    class Meta:
+        verbose_name = "Комментарий"
+        verbose_name_plural = "Комментарии"
