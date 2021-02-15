@@ -11,6 +11,7 @@
               <h1>Что там у тебя?</h1>
 
               {% if not user.is_anonymous %}
+
               <form method="post" action="{% url 'blog:new_post' %}">
               <label for="id_title">Тема:</label>
               <input id="id_title" type="text" name="title">
@@ -32,12 +33,23 @@
                </div>
                </div>
 
+<div class="search-bar w3layouts-newsletter">
+    <h3 class="sear-head editContent">Найти пост</h3>
+    <form action="{% url 'blog:search' %}" method="get" class="d-flex editContent">
+        <input type="search"
+               placeholder="{{ search_field }}"
+                name="q" class="form-control" required="">
+        <button type="submit" class="btn1 btn">
+            <span class="fa fa-search" aria-hidden="true"></span>
+        </button>
+    </form>
+</div>
 
-{% for object in object_list %}
-
+    {% for object in object_list %}
     <hr>
     <article class="post">
-     <h3><span class="content">{{object.title}}</span></h3>
+     <a href="{{ object.get_absolute_url }}">
+     <h3><span class="content">{{object.title}}</span></h3></a>
      <p><span class="content">{{ object.content }}</span></p>
      <p><span class="date">{{ object.created_at }}</span></p>
      <p>Post_id:{{ object.id }}</p>
